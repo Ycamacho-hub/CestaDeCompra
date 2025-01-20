@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Img\Cactus.png" />
+    <None Include="wwwroot\Img\Carrito.png" />
+    <None Include="wwwroot\Img\CarritoLleno.png" />
+    <None Include="wwwroot\Img\Gameboy.png" />
+    <None Include="wwwroot\Img\Manzana.png" />
+    <None Include="wwwroot\Img\OtroCarrito.png" />
+    <None Include="wwwroot\Img\Pecera.png" />
+    <None Include="wwwroot\Img\Pixel-Store-15-1-2025.png" />
+    <None Include="wwwroot\Img\Rana.png" />
+    <None Include="wwwroot\Img\Tijera.png" />
+    <None Include="wwwroot\Img\Tucan.png" />
+  </ItemGroup>
+
+</Project>
