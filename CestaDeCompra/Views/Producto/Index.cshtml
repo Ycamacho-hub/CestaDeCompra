@@ -1,17 +1,25 @@
 ﻿@model List<Producto>
 
-
 <h1>Productos</h1>
 
+
+<div class="cards">
 @{
     foreach(var p in Model)
     {
-        <figcaption class="card">
-            <img src="/img/@p.ImgNom" />
-            <caption>@p.Nombre</caption>
-            <button>Comprar</button>
-        </figcaption>
+        <figure class="card">
+            <img class="fig-img-product" src="/img/@p.ImgNom" />
+            <div class="info-producto">
+                <p class="name-product">@p.Nombre</p>
+                <p class="price-product">@p.Precio</p>
+            </div>
+            <form asp-controler="Producto" asp-action="Index" method="Post" >
+                <input type="hidden" name="productCode" value="@p.Codigo" />
+                <input type="submit" name="btn" class="btn-cesta" value="Añadir a la cesta" />
+            </form>
+        </figure>
     }
 }
 
+</div>
 
