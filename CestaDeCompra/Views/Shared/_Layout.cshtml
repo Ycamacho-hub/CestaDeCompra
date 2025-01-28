@@ -16,17 +16,16 @@
 </head>
 <body>
     <header>
-        <nav class="navbar">       
-            <div class="nav-name">
-                <a class="nombre font-pixel" asp-area="" asp-controller="Producto" asp-action="Index">
-                    <img src="~/Img/pixil-frame.png" alt="Alternate Text" />PixelStore
-                </a>
+        <nav class="navbar">
+            <a href="#" class="nav-logo font-pixel nombre " >
+                <img src="~/Img/pixil-frame.png" class="a-img" alt="">
+                PixelStore
+            </a>
+            <div class="contenedor" >
+                <img src="~/Img/Carrito.png" class="img-cesta" alt="">
+                <div class="num-compra"></div>
             </div>
-            <div class="container-carrito">
-                <img src="/Img/Carrito.png" alt="Carrito de la cesta" />
-                <div class="num-compra">@ViewData["CompraTotal"]</div>
-            </div>
-        </nav>
+        </nav>  
     </header>
     <main role="main" class="pb-3">
         @RenderBody()
