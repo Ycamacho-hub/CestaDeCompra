@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -23,7 +27,7 @@
             </a>
             <div class="contenedor" >
                 <img src="~/Img/Carrito.png" class="img-cesta" alt="">
-                <div class="num-compra"></div>
+                <div class="num-compra">@Context.Session.GetInt32("_compra")</div>
             </div>
         </nav>  
     </header>
