@@ -1,2 +1,17 @@
-﻿@{
+﻿@model List<Producto>
+
+@{
+    if(Model.LongCount() == 0)
+    {
+        <h1>Cesta vacía</h1>
+
+        <button><a asp-controller="Producto" asp-action="Index">Seguir comprando</a></button>
+    }
+    else
+    {
+        foreach (Producto p in Model)
+        {
+            <h1>@p.Nombre</h1>
+        }
+    }
 }

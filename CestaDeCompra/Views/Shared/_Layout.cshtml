@@ -21,13 +21,15 @@
 <body>
     <header>
         <nav class="navbar">
-            <a href="#" class="nav-logo font-pixel nombre " >
+            <a class="nav-logo font-pixel nombre" asp-controller="Producto" asp-action="Index" >
                 <img src="~/Img/pixil-frame.png" class="a-img" alt="">
                 PixelStore
             </a>
             <div class="contenedor" >
-                <img src="~/Img/Carrito.png" class="img-cesta" alt="">
-                <div class="num-compra">@Context.Session.GetInt32("_compra")</div>
+                <a asp-controller="Producto" asp-action="Cesta">
+                    <img src="~/Img/Carrito.png" class="img-cesta" alt="">
+                    <div class="num-compra">@Context.Session.GetInt32("_compra")</div>
+                </a>
             </div>
         </nav>  
     </header>
