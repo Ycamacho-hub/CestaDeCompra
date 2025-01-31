@@ -1,5 +1,5 @@
-﻿@model List<Producto>
-@using CestaDeCompra.Data;
+﻿@model Dictionary<string, int>
+@using CestaDeCompra.Data
 
 @{
 
@@ -13,35 +13,23 @@
     }
     else
     {
-        // foreach (Producto p in Model)
-        // {
-        //     <h1>@p.Nombre</h1>
-        // }
-
-        var cantidades = new Dictionary<string, int>();
-
-        foreach(Producto p in Model)
-        {
-            if (!cantidades.ContainsKey(p.Codigo))
-            {
-                cantidades[p.Codigo] = 0;
-            }
-            cantidades[p.Codigo] = cantidades[p.Codigo] + 1;
-        }
-
-        foreach(KeyValuePair<string, int> cnt in cantidades)
+        foreach(KeyValuePair<string, int> cnt in Model)
         {
             Producto p = productoRepo.GetProducto(cnt.Key);
 
-            <div class="cesta-producto">
-                <img class="cesta-producto-img" src="/Img/@p.ImgNom" />
-                <p class="esta-producto-name">@p.Nombre</p>
-                <p class="esta-producto-price">@p.Precio</p>
-                <form action="/" method="post">
-                    <input type="number" name="cantidad" value="@cnt.Value" />
-                    <input type="submit" name="update" value="Actualizar" />
-                </form>
-            </div>
+            if(cnt.Value > 0)
+            {
+                <div class="cesta-producto">
+                    <img class="cesta-producto-img" src="/Img/@p.ImgNom" />
+                    <p class="esta-producto-name">@p.Nombre</p>
+                    <p class="esta-producto-price">@p.Precio</p>
+                    <form asp-controller="Producto" asp-action="Actualizar" method="get">
+                        <input type="hidden" name="producCode" value="@p.Codigo" />
+                        <input type="number" name="nuevaCantidad" value="@cnt.Value" />
+                        <input type="submit" name="update" value="Actualizar" />
+                    </form>
+                </div>
+            }
 
         }
 
