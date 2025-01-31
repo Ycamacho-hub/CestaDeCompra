@@ -9,9 +9,36 @@
     }
     else
     {
-        foreach (Producto p in Model)
+        // foreach (Producto p in Model)
+        // {
+        //     <h1>@p.Nombre</h1>
+        // }
+
+        var cantidades = new Dictionary<string, int>();
+
+        foreach(Producto p in Model)
         {
-            <h1>@p.Nombre</h1>
+            if (!cantidades.ContainsKey(p.Codigo))
+            {
+                cantidades[p.Codigo] = 0;
+            }
+            cantidades[p.Codigo] = cantidades[p.Codigo] + 1;
         }
+
+        foreach(KeyValuePair<string, int> cnt in cantidades)
+        {
+            foreach (Producto d in Model)
+            {
+                string cod = "";
+                if (cantidades.ContainsKey(d.Codigo))
+                {
+
+                    cod += "<div class='prodCesta'><img src='/img/@d.ImgNom' alt='Alternate Text' /><p>@d.Nombre</p><input type='text' value='@cnt.Value' /></div>";
+
+                }
+                break;
+            }
+        }
+
     }
 }

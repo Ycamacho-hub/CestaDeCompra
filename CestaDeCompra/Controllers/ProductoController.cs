@@ -23,9 +23,6 @@ namespace CestaDeCompra.Controllers
         [HttpGet]
         public IActionResult Guardar(string productCode)
         {
-
-            
-
             Producto p = new();
             int numCompra = 0;
             List<Producto> listaProductos = [];
@@ -67,11 +64,6 @@ namespace CestaDeCompra.Controllers
             }
 
             return View(listaProductos);
-        }
-
-        public string jsonProducto(Producto p)
-        {
-            return "{'cod': }";
         }
 
 
