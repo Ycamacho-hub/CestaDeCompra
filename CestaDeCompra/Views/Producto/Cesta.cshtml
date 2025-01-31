@@ -1,6 +1,10 @@
 ﻿@model List<Producto>
+@using CestaDeCompra.Data;
 
 @{
+
+    ProductoRepo productoRepo = new();
+
     if(Model.LongCount() == 0)
     {
         <h1>Cesta vacía</h1>
@@ -27,17 +31,18 @@
 
         foreach(KeyValuePair<string, int> cnt in cantidades)
         {
-            foreach (Producto d in Model)
-            {
-                string cod = "";
-                if (cantidades.ContainsKey(d.Codigo))
-                {
+            Producto p = productoRepo.GetProducto(cnt.Key);
 
-                    cod += "<div class='prodCesta'><img src='/img/@d.ImgNom' alt='Alternate Text' /><p>@d.Nombre</p><input type='text' value='@cnt.Value' /></div>";
+            <div class="cesta-producto">
+                <img class="cesta-producto-img" src="/Img/@p.ImgNom" />
+                <p class="esta-producto-name">@p.Nombre</p>
+                <p class="esta-producto-price">@p.Precio</p>
+                <form action="/" method="post">
+                    <input type="number" name="cantidad" value="@cnt.Value" />
+                    <input type="submit" name="update" value="Actualizar" />
+                </form>
+            </div>
 
-                }
-                break;
-            }
         }
 
     }
