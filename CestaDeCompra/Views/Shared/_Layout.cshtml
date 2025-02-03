@@ -1,7 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Http
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +15,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Micro+5&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @await RenderSectionAsync("Css", required:false);
+
 </head>
 <body>
     <header>
@@ -38,7 +38,7 @@
     </main>
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - CestaDeCompra - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2025 - CestaDeCompra - ycamacho
         </div>
     </footer>
     @* <script src="~/lib/jquery/dist/jquery.min.js"></script>

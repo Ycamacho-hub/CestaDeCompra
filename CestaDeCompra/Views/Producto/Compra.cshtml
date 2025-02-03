@@ -1,2 +1,36 @@
-﻿@{
+﻿@model Dictionary<string, int>
+@using CestaDeCompra.Data
+
+@section Css {
+    <link rel="stylesheet" href="~/css/compra.css" />
+}
+
+@{
+
+    ViewData["Title"] = "Factura";
+
+    ProductoRepo productoRepo = new();
+    double valorTCesta = 0;
+    
+    foreach (KeyValuePair<string, int> cnt in Model)
+    {
+        Producto p = productoRepo.GetProducto(cnt.Key);
+
+        double valorTProd = p.Precio * cnt.Value;
+        valorTCesta += valorTProd;
+
+        if (cnt.Value > 0)
+        {
+            <div class="cesta-producto">
+                <img class="cesta-producto-img" src="/Img/@p.ImgNom" />
+                <p class="esta-producto-name">@p.Nombre</p>      
+                <p class="cesta-producto-price">Precio unitario: @p.Precio</p>
+                <p class="cesta-producto-total">Precio total: @Math.Round(valorTProd,2)</p>
+            </div>
+        }
+    }
+
+    <p class="cesta-total">Total: @Math.Round(valorTCesta,2)</p>
+
+
 }

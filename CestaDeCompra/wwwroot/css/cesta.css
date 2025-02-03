@@ -1,0 +1,94 @@
+﻿html {
+    font-size: 14px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
+}
+
+.cesta {
+    margin-top: 40px;
+}
+
+.cesta-producto {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.cesta-producto img {
+    width: 150px;
+
+}
+
+.cesta-info {
+    width: auto;
+    padding: 10px;
+    position: relative;
+    flex: 2;
+}
+
+.cesta-info input {
+    height: 28px;
+}
+.cesta-info input[type="number"] {
+    width: 50px;
+    border: 0;
+}
+
+.cesta-info input[type="submit"] {
+    background-image: url(../Img/refresh.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 28px;
+    background-color: #8D775F;
+    border: 0px;
+    padding: 2px;
+    border-radius: 3px;
+}
+
+.cesta-producto-cod {
+    position: absolute;
+    right: 0;
+    color: darkgrey;
+    font-weight: bold;
+}
+
+
+.cesta-total {
+    text-align: end;
+    padding: 5px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.buttons > * {
+    padding: 10px 15px;
+    border-radius: 3px;
+    border: 0px;
+}
+
+.buttons > * a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-seguir {
+    background-color: #8f3636;
+}
+
+.btn-seguir:hover {
+    background-color: #b13333;
+}
+
+.btn-compra {
+    background-color: #8f3636;
+}
+
+.btn-compra:hover {
+    background-color: #b13333;
+}

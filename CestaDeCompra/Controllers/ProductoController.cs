@@ -104,5 +104,19 @@ namespace CestaDeCompra.Controllers
             return LocalRedirect("/producto/Cesta");
         }
 
+        public IActionResult Compra()
+        {
+            var cestaProductos = new Dictionary<string, int>();
+
+            if (HttpContext.Session.GetString(SessionKeyList) != null)
+            {
+                string jsonP = HttpContext.Session.GetString(SessionKeyList);
+                cestaProductos = JsonSerializer.Deserialize<Dictionary<string, int>>(jsonP);
+            }
+
+            return View(cestaProductos);
+
+        }
+
     }
 }
