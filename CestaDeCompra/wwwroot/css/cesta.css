@@ -58,11 +58,28 @@
 }
 
 
-.cesta-total {
-    text-align: end;
-    padding: 5px;
+.cesta-producto-total {
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+}
+
+.cesta-producto-total {
     font-size: 1.5rem;
     font-weight: bold;
+}
+
+
+
+.cesta-total {
+    text-align: end;
+    padding: 5px 0;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.buttons {
+    margin-bottom: 60px;
 }
 
 .buttons > * {
@@ -92,3 +109,4 @@
 .btn-compra:hover {
     background-color: #b13333;
 }
+

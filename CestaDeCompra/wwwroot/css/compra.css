@@ -10,17 +10,53 @@
     box-sizing: inherit;
 }
 
-
-@media print {
-    header{
-        display: none;
-    }
-}
-
 .cesta-producto {
     display: flex;
+    margin-bottom: 15px;
 }
 
 .cesta-producto img {
     width: 150px;
+}
+
+.cesta-info {
+    width: auto;
+    padding: 10px;
+    position: relative;
+    flex: 2;
+
+}
+
+.cesta-producto-total {
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.cesta-total {
+    text-align: end !important;
+    padding: 5px 0;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.buttons > * {
+    padding: 10px 15px;
+    border-radius: 3px;
+    border: 0px;
+    background-color: #8f3636;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+@media print {
+    header {
+        display: none;
+    }
+    .none {
+        display: none;
+    }
 }

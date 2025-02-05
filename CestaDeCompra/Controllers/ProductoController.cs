@@ -107,15 +107,34 @@ namespace CestaDeCompra.Controllers
         public IActionResult Compra()
         {
             var cestaProductos = new Dictionary<string, int>();
+            var copiaCesta = new Dictionary<string, int>(); ;
+
+
 
             if (HttpContext.Session.GetString(SessionKeyList) != null)
             {
                 string jsonP = HttpContext.Session.GetString(SessionKeyList);
                 cestaProductos = JsonSerializer.Deserialize<Dictionary<string, int>>(jsonP);
+
+                copiaCesta = InicializarCesta(cestaProductos);
+
+                jsonP = JsonSerializer.Serialize(copiaCesta);
+                HttpContext.Session.SetString(SessionKeyList, jsonP);
+                HttpContext.Session.SetInt32(SessionKeyBuy, GetNumCompra(copiaCesta));
             }
 
             return View(cestaProductos);
 
+        }
+
+        public Dictionary<string, int> InicializarCesta(Dictionary<string, int> cesta)
+        {
+            foreach(KeyValuePair<string, int> kvp in cesta)
+            {
+                cesta[kvp.Key] = 0;
+            }
+
+            return cesta;
         }
 
     }

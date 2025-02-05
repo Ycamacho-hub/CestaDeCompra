@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="~/css/compra.css" />
 }
 
+<h1>Factura</h1>
+
+<div class="cesta">
 @{
 
     ViewData["Title"] = "Factura";
@@ -23,14 +26,19 @@
         {
             <div class="cesta-producto">
                 <img class="cesta-producto-img" src="/Img/@p.ImgNom" />
-                <p class="esta-producto-name">@p.Nombre</p>      
-                <p class="cesta-producto-price">Precio unitario: @p.Precio</p>
-                <p class="cesta-producto-total">Precio total: @Math.Round(valorTProd,2)</p>
+                <div class="cesta-info">
+                    <p class="cesta-producto-name">@p.Nombre</p>
+                    <p class="cesta-producto-price euro">@p.Precio €/u</p>
+                    <p class="cesta-producto-total euro">@Math.Round(valorTProd, 2) €</p>
+                </div>
             </div>
         }
     }
-
-    <p class="cesta-total">Total: @Math.Round(valorTCesta,2)</p>
-
-
+    
 }
+    <p class="cesta-total toto">Total: @Math.Round(valorTCesta, 2)</p>
+
+    <div class="buttons">
+        <input type="button" class="btn-imprimir none" name="imprimir" value="Imprimir" onclick="window.print();">
+    </div>
+</div>
