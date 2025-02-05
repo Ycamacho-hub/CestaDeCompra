@@ -116,11 +116,14 @@ namespace CestaDeCompra.Controllers
                 string jsonP = HttpContext.Session.GetString(SessionKeyList);
                 cestaProductos = JsonSerializer.Deserialize<Dictionary<string, int>>(jsonP);
 
-                copiaCesta = InicializarCesta(cestaProductos);
-
-                jsonP = JsonSerializer.Serialize(copiaCesta);
-                HttpContext.Session.SetString(SessionKeyList, jsonP);
-                HttpContext.Session.SetInt32(SessionKeyBuy, GetNumCompra(copiaCesta));
+                //copiaCesta = cestaProductos;
+                //InicializarCesta(copiaCesta);
+                
+                //jsonP = JsonSerializer.Serialize(copiaCesta);
+                //HttpContext.Session.SetString(SessionKeyList, jsonP);
+                //HttpContext.Session.SetInt32(SessionKeyBuy, GetNumCompra(copiaCesta));
+                HttpContext.Session.Remove(SessionKeyBuy);
+                HttpContext.Session.Remove(SessionKeyList);
             }
 
             return View(cestaProductos);
