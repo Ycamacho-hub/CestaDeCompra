@@ -30,19 +30,21 @@ namespace CestaDeCompra.Controllers
             string jsonCesta;
             int numCompra;
 
-            foreach (Producto p in listaProductos)
-            {
-                cestaProductos[p.Codigo] = 0;
-            }
-
-            cestaProductos[productCode] = 1;
-
             if (HttpContext.Session.GetInt32(SessionKeyBuy) != null)
             {
                 jsonCesta = HttpContext.Session.GetString(SessionKeyList);
                 cestaProductos = JsonSerializer.Deserialize <Dictionary<string, int>>(jsonCesta);
 
                 cestaProductos[productCode]++;
+            }
+            else
+            {
+                foreach (Producto p in listaProductos)
+                {
+                    cestaProductos[p.Codigo] = 0;
+                }
+
+                cestaProductos[productCode] = 1;
             }
 
             numCompra = GetNumCompra(cestaProductos);
@@ -109,8 +111,8 @@ namespace CestaDeCompra.Controllers
             var cestaProductos = new Dictionary<string, int>();
             var copiaCesta = new Dictionary<string, int>(); ;
 
-
-
+            
+            
             if (HttpContext.Session.GetString(SessionKeyList) != null)
             {
                 string jsonP = HttpContext.Session.GetString(SessionKeyList);
