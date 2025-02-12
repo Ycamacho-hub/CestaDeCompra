@@ -1,4 +1,4 @@
-﻿@model Dictionary<string, int>
+﻿@model Cesta;
 @using CestaDeCompra.Data
 
 @section Css {
@@ -15,7 +15,7 @@
     ProductoRepo productoRepo = new();
     double valorTCesta = 0;
 
-    foreach(KeyValuePair<string, int> cnt in Model)
+    foreach(KeyValuePair<string, int> cnt in Model.GetCesta())
     {
         Producto p = productoRepo.GetProducto(cnt.Key);
 
@@ -46,7 +46,7 @@
 }
     <div class="buttons">
         <button class="btn-seguir"><a asp-controller="Producto" asp-action="Index">Seguir comprando</a></button>
-        @if (Model.LongCount() != 0)
+        @if (Model.GetProductosTotales() != 0)
         {
             <button class="btn-compra"><a asp-controller="Producto" asp-action="Compra">Finalizar Compra</a></button>
         }

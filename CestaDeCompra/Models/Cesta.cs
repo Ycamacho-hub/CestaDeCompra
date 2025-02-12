@@ -1,15 +1,19 @@
-﻿namespace CestaDeCompra.Models
+﻿using System.Text.Json.Serialization;
+
+namespace CestaDeCompra.Models
 {
     public class Cesta
     {
-
-        public Cesta() { }
+        // Constructores
         public Cesta(Dictionary<string, int> cesta) {
             SetCesta(cesta);
         }
+        public Cesta() { }
 
-        private Dictionary<string, int> CestaProductos = [];
+        [JsonInclude]
+        private Dictionary<string, int> CestaProductos { get; set; } = [];
 
+        // Métodos
         public void AddProducto(string codProducto)
         {
             if (!CestaProductos.ContainsKey(codProducto))
@@ -34,6 +38,10 @@
             }
         }
 
+        /// <summary>
+        /// Retorna el total de todas las cantidades sumadas de los productos
+        /// </summary>
+        /// <returns>int</returns>
         public int GetProductosTotales()
         {
             int total = 0;
@@ -46,7 +54,12 @@
 
         public void SetCesta(Dictionary<string, int> cesta)
         {
-            CestaProductos = cesta;
+            this.CestaProductos = cesta;
+        }
+
+        public Dictionary<string, int> GetCesta()
+        {
+            return this.CestaProductos;
         }
 
     }

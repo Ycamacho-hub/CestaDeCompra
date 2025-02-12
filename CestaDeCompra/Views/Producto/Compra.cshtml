@@ -1,13 +1,21 @@
-﻿@model Dictionary<string, int>
+﻿@model Cesta;
 @using CestaDeCompra.Data
 
 @section Css {
-    <link rel="stylesheet" href="~/css/compra.css" />
+        <link rel="stylesheet" href="~/css/compra.css" />
 }
 
-<h1>Factura</h1>
 
 <div class="cesta">
+   
+    <table>
+        <caption>Factura</caption>
+        <tr>
+            <th>Producto</th>
+            <th>Precio unitario</th>
+            <th>Cantidad</th>
+            <th>Total producto</th>
+        </tr>
 @{
 
     ViewData["Title"] = "Factura";
@@ -15,7 +23,7 @@
     ProductoRepo productoRepo = new();
     double valorTCesta = 0;
     
-    foreach (KeyValuePair<string, int> cnt in Model)
+    foreach (KeyValuePair<string, int> cnt in Model.GetCesta())
     {
         Producto p = productoRepo.GetProducto(cnt.Key);
 
@@ -23,19 +31,17 @@
         valorTCesta += valorTProd;
 
         if (cnt.Value > 0)
-        {
-            <div class="cesta-producto">
-                <img class="cesta-producto-img" src="/Img/@p.ImgNom" />
-                <div class="cesta-info">
-                    <p class="cesta-producto-name">@p.Nombre</p>
-                    <p class="cesta-producto-price euro">@p.Precio €   x    @cnt.Value</p>
-                    <p class="cesta-producto-total euro">@Math.Round(valorTProd, 2) €</p>
-                </div>
-            </div>
+        { 
+            <tr class="cesta-info">
+                <td class="cesta-producto-name">@p.Nombre</td>
+                <td class="cesta-producto-price euro">@p.Precio €</td>
+                <td class="cesta-producto-price euro">@cnt.Value</td>
+                <td class="cesta-producto-total euro">@Math.Round(valorTProd, 2) €</td>
+            </tr>
         }
     }
-    
 }
+    </table>
     <p class="cesta-total toto">Total: @Math.Round(valorTCesta, 2)</p>
 
     <div class="buttons">

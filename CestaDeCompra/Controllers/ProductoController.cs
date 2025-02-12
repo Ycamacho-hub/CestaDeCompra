@@ -26,29 +26,26 @@ namespace CestaDeCompra.Controllers
         public IActionResult Guardar(string productCode)
         {
             List<Producto> listaProductos = prodRepo.GetProductos();
-            Dictionary<string, int> cestaProductos = [];
+            // Dictionary<string, int> cestaProductos = [];
             string jsonCesta;
             int numCompra;
+
+            Cesta cestaProductos = new();
 
             if (HttpContext.Session.GetInt32(SessionKeyBuy) != null)
             {
                 jsonCesta = HttpContext.Session.GetString(SessionKeyList);
-                cestaProductos = JsonSerializer.Deserialize <Dictionary<string, int>>(jsonCesta);
+                cestaProductos = JsonSerializer.Deserialize<Cesta>(jsonCesta);
 
-                cestaProductos[productCode]++;
+                cestaProductos.AddProducto(productCode);
             }
             else
             {
-                foreach (Producto p in listaProductos)
-                {
-                    cestaProductos[p.Codigo] = 0;
-                }
-
-                cestaProductos[productCode] = 1;
+                cestaProductos.AddProducto(productCode);
             }
 
-            numCompra = GetNumCompra(cestaProductos);
-            jsonCesta = JsonSerializer.Serialize(cestaProductos);
+            numCompra = cestaProductos.GetProductosTotales();
+            jsonCesta = JsonSerializer.Serialize<Cesta>(cestaProductos);
 
             HttpContext.Session.SetInt32(SessionKeyBuy, numCompra);
             HttpContext.Session.SetString(SessionKeyList, jsonCesta);
@@ -70,12 +67,12 @@ namespace CestaDeCompra.Controllers
 
         public IActionResult Cesta()
         {
-            var cestaProductos = new Dictionary<string, int>();
+            var cestaProductos = new Cesta();
 
             if(HttpContext.Session.GetString(SessionKeyList) != null)
             {
                 string jsonP = HttpContext.Session.GetString(SessionKeyList);
-                cestaProductos = JsonSerializer.Deserialize<Dictionary<string, int>>(jsonP);
+                cestaProductos = JsonSerializer.Deserialize<Cesta>(jsonP);
             }
 
             return View(cestaProductos);
@@ -84,7 +81,7 @@ namespace CestaDeCompra.Controllers
         [HttpGet]
         public IActionResult Actualizar(string nuevaCantidad, string producCode)
         {
-            Dictionary<string, int> cestaProductos = [];
+            Cesta cestaProductos = new();
             string jsonCesta;
             int numCompra;
 
@@ -92,12 +89,12 @@ namespace CestaDeCompra.Controllers
             if (HttpContext.Session.GetInt32(SessionKeyBuy) != null)
             {
                 jsonCesta = HttpContext.Session.GetString(SessionKeyList);
-                cestaProductos = JsonSerializer.Deserialize<Dictionary<string, int>>(jsonCesta);
+                cestaProductos = JsonSerializer.Deserialize<Cesta>(jsonCesta);
 
-                cestaProductos[producCode] = Convert.ToInt32(nuevaCantidad);
+                cestaProductos.UpdateCantidadProd(producCode, Convert.ToInt32(nuevaCantidad));
             }
 
-            numCompra = GetNumCompra(cestaProductos);
+            numCompra = cestaProductos.GetProductosTotales();
             jsonCesta = JsonSerializer.Serialize(cestaProductos);
 
             HttpContext.Session.SetInt32(SessionKeyBuy, numCompra);
@@ -108,15 +105,12 @@ namespace CestaDeCompra.Controllers
 
         public IActionResult Compra()
         {
-            var cestaProductos = new Dictionary<string, int>();
-            var copiaCesta = new Dictionary<string, int>(); ;
+            var cestaProductos = new Cesta();
 
-            
-            
             if (HttpContext.Session.GetString(SessionKeyList) != null)
             {
                 string jsonP = HttpContext.Session.GetString(SessionKeyList);
-                cestaProductos = JsonSerializer.Deserialize<Dictionary<string, int>>(jsonP);
+                cestaProductos = JsonSerializer.Deserialize<Cesta>(jsonP);
 
                 //copiaCesta = cestaProductos;
                 //InicializarCesta(copiaCesta);
@@ -129,7 +123,6 @@ namespace CestaDeCompra.Controllers
             }
 
             return View(cestaProductos);
-
         }
 
         public Dictionary<string, int> InicializarCesta(Dictionary<string, int> cesta)
