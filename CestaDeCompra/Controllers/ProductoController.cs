@@ -3,6 +3,7 @@ using CestaDeCompra.Models;
 using CestaDeCompra.Data;
 using System.Data;
 using System.Text.Json;
+using Microsoft.AspNetCore.Routing.Constraints;
 
 namespace CestaDeCompra.Controllers
 {
@@ -109,14 +110,49 @@ namespace CestaDeCompra.Controllers
         }
 
         [HttpPost]
-        public IActionResult Agregar(Producto p)
+        public async Task<IActionResult> Agregar(Producto p, IFormFile ImgNom)
         {
-            if (ModelState.IsValid)
+
+            if(prodRepo.GetProducto(p.Codigo) != null) {
+                ViewData["ErrorCode"] = "Ya existe un producto con este codigo";
+                return View(p); 
+            }
+
+            ModelState.Clear();
+            // Console.WriteLine(p.Precio +  p.Codigo + p.Nombre);
+            if (TryValidateModel(p))
             {
+                
+                p.ImgNom = await OnPostUploadAsync(ImgNom);
                 prodRepo.AddProducto(p);
             }
-            return View();
+            return LocalRedirect("/producto/index");
         }
+
+        public async Task<string> OnPostUploadAsync(IFormFile file)
+        {
+            string fileName = "";
+            string extension = "";
+
+            if (file.Length > 0)
+            {
+                fileName = Guid.NewGuid().ToString();
+                extension = Path.GetExtension(file.FileName);
+
+                var filePath = Path.Combine("C:\\Users\\ycamacho\\Desktop\\Net-WorkSpace\\CestaDeCompra\\CestaDeCompra\\wwwroot\\Img\\"+fileName+extension);
+                using (var stream = System.IO.File.Create(filePath))
+                {
+                    await file.CopyToAsync(stream);
+                }
+                
+            }
+
+            // Process uploaded files
+            // Don't rely on or trust the FileName property without validation.
+            return fileName + extension;
+        }
+
+
 
     }
 }

@@ -26,10 +26,10 @@
                 PixelStore
             </a>
             <a class="nav-opt" asp-controller="Producto" asp-action="Agregar">Agregar producto</a>
-            <div class="contenedor" >
+            <div class="contenedor none" >
                 <a asp-controller="Producto" asp-action="Cesta">
-                    <img src="~/Img/Carrito.png" class="img-cesta" alt="">
-                    <div class="num-compra">@Context.Session.GetInt32("_compra")</div>
+                    <img src="~/Img/Carrito.png" class="img-cesta none" alt="">
+                    <div class="num-compra none">@Context.Session.GetInt32("_compra")</div>
                 </a>
             </div>
         </nav>  

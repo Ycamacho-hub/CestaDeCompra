@@ -3,18 +3,22 @@
     <link rel="stylesheet" href="~/css/producto-form.css" />
 }
 
+
+
 <div>
     <h1>Nuevo producto</h1>
 
     <form enctype="multipart/form-data" asp-controller="Producto" asp-action="Agregar" method="post">
-        <input type="text" asp-for="Codigo" value="" pattern="[A-Z][0-9]{3}" placeholder="Código del producto" />
-        <span asp-validation-for="Codigo"></span>
-        <input type="text" asp-for="Nombre" value="" placeholder="Nombre del producto" />
-        <span asp-validation-for="Nombre"></span>
-        <input type="text" value="" asp-for="Precio" placeholder="Precio por unidad" />
-        <span asp-validation-for="Precio"></span>
-        @* <input type="file" name="image" value="" placeholder="Imagen del producto" />  *@
+        <input type="text" asp-for="Codigo" pattern="[A-Z][0-9]{3}" placeholder="Código del producto" />
+        <span asp-validation-for="Codigo">@ViewData["ErrorCode"]</span>
 
-        <input type="submit" asp-controller="Producto" asp-action="Agregar" name="enviar" value="Agregar producto" />
+        <input type="text" asp-for="Nombre" required placeholder="Nombre del producto" />
+        <span asp-validation-for="Nombre"></span>
+
+        <input type="text" asp-for="Precio" required pattern="[0-9]+(\,[0-9]+)?" placeholder="Precio por unidad" />
+        <span asp-validation-for="Precio"></span>
+        <input type="file" asp-for="ImgNom" required placeholder="Imagen del producto" /> 
+
+        <input type="submit" name="enviar" value="Agregar producto" />
     </form>
 </div>

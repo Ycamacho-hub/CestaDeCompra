@@ -14,6 +14,6 @@ namespace CestaDeCompra.Models
         [Required(ErrorMessage = "Ingrese el precio del producto")]
         public double Precio { get; set; }
 
-        public string ImgNom {  get; set; }
+        public string? ImgNom {  get; set; }
     }
 }
