@@ -12,6 +12,28 @@
 
 table {
     width: 100%;
+    border-collapse: collapse;
+}
+
+table tr:first-of-type th:first-of-type {
+    border-radius: 10px 0 0 0;
+}
+
+table tr:first-of-type th:last-of-type {
+    border-radius: 0 10px 0 0;
+}
+
+td, th {
+    width: 25%;
+    height: 2rem;
+}
+
+td {
+    border: #b2b2b2 1px solid;
+}
+
+th {
+    background-color: #b2b2b2;
 }
 
 .cesta-total {
@@ -30,6 +52,7 @@ table {
     color: white;
     font-weight: bold;
 }
+
 
 @media print {
     header {
