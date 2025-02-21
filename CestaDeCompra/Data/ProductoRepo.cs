@@ -18,5 +18,11 @@ namespace CestaDeCompra.Data
         {
             return BDproducto.productos;
         }
+
+        public void AddProducto(Producto p)
+        {
+            BDproducto.Add(p);
+        }
+
     }
 }

@@ -3,8 +3,6 @@ using CestaDeCompra.Models;
 using CestaDeCompra.Data;
 using System.Data;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-
 
 namespace CestaDeCompra.Controllers
 {
@@ -19,8 +17,6 @@ namespace CestaDeCompra.Controllers
         {
             return View(prodRepo.GetProductos());
         }
-
-        
 
         [HttpGet]
         public IActionResult Guardar(string productCode)
@@ -52,18 +48,6 @@ namespace CestaDeCompra.Controllers
 
             return LocalRedirect ("/producto/index");
         }
-
-        public int GetNumCompra(Dictionary<string, int> d)
-        {
-            int numCompra = 0;
-            foreach(KeyValuePair<string, int> kvp in d)
-            {
-                numCompra += kvp.Value;
-            }
-
-            return numCompra;
-        }
-
 
         public IActionResult Cesta()
         {
@@ -112,12 +96,6 @@ namespace CestaDeCompra.Controllers
                 string jsonP = HttpContext.Session.GetString(SessionKeyList);
                 cestaProductos = JsonSerializer.Deserialize<Cesta>(jsonP);
 
-                //copiaCesta = cestaProductos;
-                //InicializarCesta(copiaCesta);
-                
-                //jsonP = JsonSerializer.Serialize(copiaCesta);
-                //HttpContext.Session.SetString(SessionKeyList, jsonP);
-                //HttpContext.Session.SetInt32(SessionKeyBuy, GetNumCompra(copiaCesta));
                 HttpContext.Session.Remove(SessionKeyBuy);
                 HttpContext.Session.Remove(SessionKeyList);
             }
@@ -125,14 +103,9 @@ namespace CestaDeCompra.Controllers
             return View(cestaProductos);
         }
 
-        public Dictionary<string, int> InicializarCesta(Dictionary<string, int> cesta)
+        public IActionResult Agregar()
         {
-            foreach(KeyValuePair<string, int> kvp in cesta)
-            {
-                cesta[kvp.Key] = 0;
-            }
-
-            return cesta;
+            return View();
         }
 
     }

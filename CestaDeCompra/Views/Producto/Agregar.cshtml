@@ -1,0 +1,16 @@
+﻿@section Css {
+    <link rel="stylesheet" href="~/css/producto-form.css" />
+}
+
+<div>
+    <h1>Nuevo producto</h1>
+
+    <form asp-controller="Producto" asp-action="Agregar" method="post">
+        <input type="text" name="code" value="" pattern="[A-Z][0-9]{3}" placeholder="Código del producto" />
+        <input type="text" name="name" value="" placeholder="Nombre del producto" />
+        <input type="text" name="price" value="" placeholder="Precio por unidad" />
+        @* <input type="text" name="image" value="" placeholder="Imagen del producto" /> *@
+
+        <input type="submit" asp-controller="Producto" asp-action="Agregar" name="enviar" value="Agregar producto" />
+    </form>
+</div>

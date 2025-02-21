@@ -18,5 +18,11 @@ namespace CestaDeCompra.Data
 
         }
 
+
+        public static void Add(Producto p)
+        {
+            productos.Add(new Producto() { Codigo = p.Codigo, Nombre = p.Nombre, Precio = p.Precio, ImgNom = "default-img.png" });
+        }
+
     }
 }
