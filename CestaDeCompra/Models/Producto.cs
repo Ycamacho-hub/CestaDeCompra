@@ -4,7 +4,7 @@ namespace CestaDeCompra.Models
 {
     public class Producto
     {
-
+        [Key]
         [Required(ErrorMessage = "Ingrese el código del producto")]
         public string Codigo { get; set; }
 

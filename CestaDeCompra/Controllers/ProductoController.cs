@@ -108,5 +108,15 @@ namespace CestaDeCompra.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Agregar(Producto p)
+        {
+            if (ModelState.IsValid)
+            {
+                prodRepo.AddProducto(p);
+            }
+            return View();
+        }
+
     }
 }
