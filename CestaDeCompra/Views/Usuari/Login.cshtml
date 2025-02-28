@@ -1,0 +1,18 @@
+﻿@model Usuari
+@section Css {
+    <link rel="stylesheet" href="~/css/login.css" />
+}
+
+<div>
+    <h2>Login</h2>
+
+    <form asp-controller="Usuari" asp-action="Login"  method="post">
+        <input asp-for="Email" name="Email" value="" />
+        <span asp-validation-for="Email"></span>
+        <input asp-for="Password" name="Password" value="" />
+        <span asp-validation-for="Password"></span>
+
+
+        <input type="submit" name="Enviar" value="Enviar" />
+    </form>
+</div>

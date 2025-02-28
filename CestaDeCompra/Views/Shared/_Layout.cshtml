@@ -26,6 +26,19 @@
                 PixelStore
             </a>
             <a class="nav-opt" asp-controller="Producto" asp-action="Agregar">Agregar producto</a>
+            <div>
+                
+                @{
+                    if (ViewData["Login"] != null && ViewData["Login"].Equals("True"))
+                    {
+                        <p>@ViewData["Usuari"]</p>
+
+                    }else
+                    {
+                        <a asp-controller="Usuari" asp-action="Login">Login</a>
+                    }
+                }
+            </div>
             <div class="contenedor none" >
                 <a asp-controller="Producto" asp-action="Cesta">
                     <img src="~/Img/Carrito.png" class="img-cesta none" alt="">
@@ -36,6 +49,7 @@
     </header>
     <main role="main" class="pb-3">
         @RenderBody()
+        @ViewData["Login"]
     </main>
     <footer class="border-top footer text-muted">
         <div class="container">

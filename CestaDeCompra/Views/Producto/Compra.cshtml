@@ -1,5 +1,6 @@
 ﻿@model Cesta;
 @using CestaDeCompra.Data
+@using CestaDeCompra.Repository
 
 @section Css {
         <link rel="stylesheet" href="~/css/compra.css" />
@@ -20,7 +21,7 @@
 
     ViewData["Title"] = "Factura";
 
-    ProductoRepo productoRepo = new();
+    ProductoRepository productoRepo = new();
     double valorTCesta = 0;
     
     foreach (KeyValuePair<string, int> cnt in Model.GetCesta())

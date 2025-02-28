@@ -4,13 +4,14 @@ using CestaDeCompra.Data;
 using System.Data;
 using System.Text.Json;
 using Microsoft.AspNetCore.Routing.Constraints;
+using CestaDeCompra.Repository;
 
 namespace CestaDeCompra.Controllers
 {
     public class ProductoController : Controller
     {
 
-        public ProductoRepo prodRepo = new();
+        public ProductoRepository prodRepo = new();
         const string SessionKeyBuy = "_compra";
         const string SessionKeyList = "_listaPrductos";
 

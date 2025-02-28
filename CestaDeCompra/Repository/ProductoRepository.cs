@@ -1,14 +1,15 @@
 ﻿using CestaDeCompra.Models;
+using CestaDeCompra.Data;
 
-namespace CestaDeCompra.Data
+namespace CestaDeCompra.Repository
 {
-    public class ProductoRepo
+    public class ProductoRepository
     {
         public Producto? GetProducto(string cod)
         {
-            foreach(Producto p in BDproducto.productos)
+            foreach (Producto p in BDproducto.productos)
             {
-                if(p.Codigo == cod) return p;
+                if (p.Codigo == cod) return p;
             }
 
             return null;
@@ -21,10 +22,7 @@ namespace CestaDeCompra.Data
 
         public void AddProducto(Producto p)
         {
-            BDproducto.Add(p);
+            BDproducto.productos.Add(p);
         }
-
-
-
     }
 }
