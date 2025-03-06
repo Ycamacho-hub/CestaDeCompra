@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CestaDeCompra.Models;
 using CestaDeCompra.Repository;
+using CestaDeCompra.Utils;
 
 namespace CestaDeCompra.Controllers
 {
@@ -16,22 +17,21 @@ namespace CestaDeCompra.Controllers
         public IActionResult Login(Usuari us)
         {
             UsuariRepository userRepo = new();
-            
-            //Usuari us = new(Password, Email);
-            // Si el usuario existe
-            if (userRepo.ExistUsuari(us.Email))
-            {
-                // Y la contraseña es correcta
-                if (us.Password.Equals(userRepo.GetPasswUsuari(us.Email)))
-                {
-                    //Usuaris.CreateUsuari(us);
-                    ViewData["Login"] = "True";
-                    ViewData["Usuari"] = us.Email;
-                    
-                    return LocalRedirect("/producto/index");
-                }
-                    
+
+            if (!userRepo.ExistUsuari(us.Email))
+            { 
+                ModelState.AddModelError("Email", "Usuario inexistente");
             }
+            else if(!userRepo.CheckOutUsuari(us)) 
+            {
+                ModelState.AddModelError("Password", "Contraseña incorrecta");
+            }
+            if (userRepo.CheckOutUsuari(us))
+            {
+                SessionUtils.SetSessionUsuari(HttpContext, us);
+                return LocalRedirect("/producto/index");
+            }
+                
 
             return View(us);
         }

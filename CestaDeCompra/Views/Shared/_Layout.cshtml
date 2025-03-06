@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Http
+@using CestaDeCompra.Utils
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,11 +28,12 @@
             </a>
             <a class="nav-opt" asp-controller="Producto" asp-action="Agregar">Agregar producto</a>
             <div>
-                
                 @{
-                    if (ViewData["Login"] != null && ViewData["Login"].Equals("True"))
+                    if (SessionUtils.GetSessionUsuari(Context) != null)
                     {
-                        <p>@ViewData["Usuari"]</p>
+                        Usuari? user = SessionUtils.GetSessionUsuari(Context);
+                        <p>@user.Email</p>
+                        <a asp-controller="Usuari" asp-action="Logout">Logut</a>
 
                     }else
                     {
@@ -42,7 +44,7 @@
             <div class="contenedor none" >
                 <a asp-controller="Producto" asp-action="Cesta">
                     <img src="~/Img/Carrito.png" class="img-cesta none" alt="">
-                    <div class="num-compra none">@Context.Session.GetInt32("_compra")</div>
+                    <div class="num-compra none">@SessionUtils.GetSessionCestaCantidad(Context)</div>@* @Context.Session.GetInt32("_compra") *@
                 </a>
             </div>
         </nav>  

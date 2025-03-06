@@ -7,11 +7,18 @@
     <h2>Login</h2>
 
     <form asp-controller="Usuari" asp-action="Login"  method="post">
-        <input asp-for="Email" name="Email" value="" />
-        <span asp-validation-for="Email"></span>
-        <input asp-for="Password" name="Password" value="" />
-        <span asp-validation-for="Password"></span>
-
+        <label>
+            Usuario: 
+            <input asp-for="Email" name="Email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </label>
+        <br />
+        <label>
+            Contraseña: 
+            <input asp-for="Password" name="Password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </label>
+        <br />
 
         <input type="submit" name="Enviar" value="Enviar" />
     </form>

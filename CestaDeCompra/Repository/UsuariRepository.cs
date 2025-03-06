@@ -46,6 +46,20 @@ namespace CestaDeCompra.Repository
             return passw;
         }
 
+        public bool CheckOutUsuari(Usuari us)
+        {
+            Usuari user = GetUsuari(us.Email);
+            if(ExistUsuari(us.Email) && us.Password.Equals(user.Password))
+                return true;
+            return false;
+        }
+
+        /// <summary>
+        /// Método que retorna un usuario determinado según el imail pasado.
+        /// O null si el  el usuario no existe
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public Usuari? GetUsuari(string email)
         {
             Usuari? user = null;
