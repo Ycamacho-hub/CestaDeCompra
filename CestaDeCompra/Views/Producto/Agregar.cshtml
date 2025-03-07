@@ -10,7 +10,7 @@
 
     <form enctype="multipart/form-data" asp-controller="Producto" asp-action="Agregar" method="post">
         <input type="text" asp-for="Codigo" pattern="[A-Z][0-9]{3}" placeholder="Código del producto" />
-        <span asp-validation-for="Codigo">@ViewData["ErrorCode"]</span>
+        <span asp-validation-for="Codigo"></span>
 
         <input type="text" asp-for="Nombre" required placeholder="Nombre del producto" />
         <span asp-validation-for="Nombre"></span>

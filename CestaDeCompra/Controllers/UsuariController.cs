@@ -22,18 +22,24 @@ namespace CestaDeCompra.Controllers
             { 
                 ModelState.AddModelError("Email", "Usuario inexistente");
             }
-            else if(!userRepo.CheckOutUsuari(us)) 
+            else if(!userRepo.CheckOutUsuari(us))
             {
                 ModelState.AddModelError("Password", "Contraseña incorrecta");
             }
             if (userRepo.CheckOutUsuari(us))
             {
                 SessionUtils.SetSessionUsuari(HttpContext, us);
-                return LocalRedirect("/producto/index");
+                return LocalRedirect("/home/index");
             }
                 
 
             return View(us);
+        }
+
+        public IActionResult Logout()
+        {
+            SessionUtils.DeteleSessionUsuari(HttpContext);
+            return LocalRedirect("/home/index");
         }
 
     }

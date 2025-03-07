@@ -19,10 +19,10 @@ namespace CestaDeCompra.Data
         }
 
 
-        public static void Add(Producto p)
-        {
-            productos.Add(new Producto() { Codigo = p.Codigo, Nombre = p.Nombre, Precio = p.Precio, ImgNom = p.ImgNom });
-        }
+        //public static void Add(Producto p)
+        //{
+        //    productos.Add(new Producto() { Codigo = p.Codigo, Nombre = p.Nombre, Precio = p.Precio, ImgNom = p.ImgNom });
+        //}
 
     }
 }

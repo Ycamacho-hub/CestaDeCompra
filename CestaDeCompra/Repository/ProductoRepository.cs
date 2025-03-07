@@ -15,6 +15,11 @@ namespace CestaDeCompra.Repository
             return null;
         }
 
+        public bool ExistProducto(string cod)
+        {
+            return GetProducto(cod) != null;
+        }
+
         public List<Producto> GetProductos()
         {
             return BDproducto.productos;
@@ -24,5 +29,17 @@ namespace CestaDeCompra.Repository
         {
             BDproducto.productos.Add(p);
         }
+
+        public void DeleteProducto(String cod)
+        {
+            Producto? p = GetProducto(cod);
+            if (p != null) BDproducto.productos.Remove(p);
+        }
+
+        public void DeleteProducto(Producto p)
+        {
+            BDproducto.productos.Remove(p);
+        }
+
     }
 }

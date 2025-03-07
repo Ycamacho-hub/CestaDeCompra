@@ -14,18 +14,18 @@ namespace CestaDeCompra.Utils
 
         /// <summary>
         ///  Retorna el objeto Cesta que está en la Session
+        ///  Si hay ninguna retorna un intancia de Cesta vacia
         /// </summary>
         /// <param name="htp"></param>
         /// <returns>
         /// </returns>
         public static Cesta? GetSessionCesta(HttpContext htp)
         {
-            string? jsonCesta;
-            Cesta? cestaProductos = null;
+            Cesta? cestaProductos = new();
 
             if (htp.Session.GetInt32(SessionKeyList) != null)
             {
-                jsonCesta = htp.Session.GetString(SessionKeyList);
+                string jsonCesta = htp.Session.GetString(SessionKeyList);
                 cestaProductos = JsonSerializer.Deserialize<Cesta>(jsonCesta);
             }
 
@@ -42,7 +42,16 @@ namespace CestaDeCompra.Utils
             string jsonCesta = JsonSerializer.Serialize<Cesta>(cesta);
             htp.Session.SetString(SessionKeyList, jsonCesta);
         }
-        
+
+        /// <summary>
+        /// Elimina la cesta de la session
+        /// </summary>
+        /// <param name="htp"></param>
+        public static void DeleteSessionCesta(HttpContext htp)
+        {
+            htp.Session.Remove(SessionKeyList);
+        }
+
         /// <summary>
         /// Hace uso de la función 'GetSessionCesta()' para obtener la Cesta.
         /// Luego con ayuda de la función GetProductosTotales() del objeto Cesta 
@@ -89,6 +98,15 @@ namespace CestaDeCompra.Utils
         {
             string jsonUser = JsonSerializer.Serialize<Usuari>(user);
             htp.Session.SetString(SessionKeyUser, jsonUser);
+        }
+
+        /// <summary>
+        /// Elimina el usuario de la session
+        /// </summary>
+        /// <param name="htp"></param>
+        public static void DeteleSessionUsuari(HttpContext htp)
+        {
+            htp.Session.Remove(SessionKeyUser);
         }
 
     }

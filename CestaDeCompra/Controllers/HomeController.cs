@@ -1,4 +1,5 @@
 using CestaDeCompra.Models;
+using CestaDeCompra.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,13 +16,10 @@ namespace CestaDeCompra.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            ProductoRepository productoRepository= new ProductoRepository();
+            return View(productoRepository.GetProductos());
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

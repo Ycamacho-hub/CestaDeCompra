@@ -22,7 +22,7 @@
 <body>
     <header>
         <nav class="navbar">
-            <a class="nav-logo font-pixel nombre" asp-controller="Producto" asp-action="Index" >
+            <a class="nav-logo font-pixel nombre" asp-controller="Home" asp-action="Index" >
                 <img src="~/Img/pixil-frame.png" class="a-img" alt="">
                 PixelStore
             </a>
@@ -42,7 +42,7 @@
                 }
             </div>
             <div class="contenedor none" >
-                <a asp-controller="Producto" asp-action="Cesta">
+                <a asp-controller="Cesta" asp-action="Cesta">
                     <img src="~/Img/Carrito.png" class="img-cesta none" alt="">
                     <div class="num-compra none">@SessionUtils.GetSessionCestaCantidad(Context)</div>@* @Context.Session.GetInt32("_compra") *@
                 </a>

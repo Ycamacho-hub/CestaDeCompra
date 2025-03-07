@@ -32,7 +32,7 @@
                     <p class="cesta-producto-name">@p.Nombre</p>
                     <p class="cesta-producto-price euro">Precio unidad: @p.Precio €</p>
                     <p class="cesta-producto-total euro">@Math.Round(valorTProd, 2) €</p>
-                    <form asp-controller="Producto" asp-action="Actualizar" method="get">
+                    <form asp-controller="Cesta" asp-action="Actualizar" method="get">
                         Cantidad: 
                         <input type="hidden" name="producCode" value="@p.Codigo" />
                         <input type="number" min="0" name="nuevaCantidad" value="@cnt.Value" />
@@ -46,10 +46,10 @@
 
 }
     <div class="buttons">
-        <button class="btn-seguir"><a asp-controller="Producto" asp-action="Index">Seguir comprando</a></button>
+        <button class="btn-seguir"><a asp-controller="Home" asp-action="Index">Seguir comprando</a></button>
         @if (Model.GetProductosTotales() != 0)
         {
-            <button class="btn-compra"><a asp-controller="Producto" asp-action="Compra">Finalizar Compra</a></button>
+            <button class="btn-compra"><a asp-controller="Cesta" asp-action="Compra">Finalizar Compra</a></button>
         }
 
     </div>

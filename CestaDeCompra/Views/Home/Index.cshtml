@@ -1,8 +1,27 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model List<Producto>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1>Productos</h1>
+
+<div class="cards">
+@{
+
+    ViewData["Title"] = "Tienda";
+
+    foreach(var p in Model)
+    {
+        <figure class="card">
+            <img class="fig-img-product" src="/img/@p.ImgNom" />
+            <div class="info-producto">
+                <p class="name-product">@p.Nombre</p>
+                <p class="price-product">@p.Precio</p>
+            </div>
+            <form asp-controller="Cesta" asp-action="Guardar" method="get" >
+                <input type="hidden" name="productCode" value="@p.Codigo" />
+                <input type="submit" name="btn" class="btn-cesta" value="Añadir a la cesta" />
+            </form>
+            
+        </figure>
+    }
+}   
 </div>
+
