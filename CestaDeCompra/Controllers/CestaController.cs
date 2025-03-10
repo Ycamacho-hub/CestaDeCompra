@@ -16,6 +16,13 @@ namespace CestaDeCompra.Controllers
         [HttpGet]
         public IActionResult Guardar(string productCode)
         {
+
+            if (SessionUtils.GetSessionUsuari(HttpContext) != null)
+            {
+                Usuari? user = SessionUtils.GetSessionUsuari(HttpContext);
+                if (user.IsAdmin) return LocalRedirect("/home/index");
+
+            }
             ProductoRepository prodRepo = new();
             List<Producto> listaProductos = prodRepo.GetProductos();
 
@@ -34,6 +41,13 @@ namespace CestaDeCompra.Controllers
         /// <returns></returns>
         public IActionResult Cesta()
         {
+            if(SessionUtils.GetSessionUsuari(HttpContext) != null)
+            {
+                Usuari? user = SessionUtils.GetSessionUsuari(HttpContext);
+                if(user.IsAdmin) return LocalRedirect("/home/index");
+
+            }
+
             var cestaProductos = SessionUtils.GetSessionCesta(HttpContext);
 
             return View(cestaProductos);

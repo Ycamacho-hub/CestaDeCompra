@@ -28,6 +28,7 @@ namespace CestaDeCompra.Controllers
             }
             if (userRepo.CheckOutUsuari(us))
             {
+                us = userRepo.GetUsuari(us.Email);
                 SessionUtils.SetSessionUsuari(HttpContext, us);
                 return LocalRedirect("/home/index");
             }
