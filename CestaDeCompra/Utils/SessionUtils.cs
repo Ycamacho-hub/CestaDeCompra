@@ -11,6 +11,7 @@ namespace CestaDeCompra.Utils
         const string SessionKeyBuy = "_compra";
         const string SessionKeyList = "_listaPrductos";
         const string SessionKeyUser = "_user";
+        const string SessionKeyTry = "_try";
 
         /// <summary>
         ///  Retorna el objeto Cesta que está en la Session
@@ -107,6 +108,54 @@ namespace CestaDeCompra.Utils
         public static void DeteleSessionUsuari(HttpContext htp)
         {
             htp.Session.Remove(SessionKeyUser);
+        }
+
+        /// <summary>
+        /// Retrona el número de intentos de inicio de sesion fallidos que tenga un usuario
+        /// </summary>
+        /// <param name="htp"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static int GetUserSessionTry(HttpContext htp, string userId)
+        {
+            Dictionary<string, int> usersTry;
+            int trys = 0;
+
+            if (htp.Session.GetString(SessionKeyTry) != null)
+            {
+                string jsonTrys = htp.Session.GetString(SessionKeyTry);
+                usersTry = JsonSerializer.Deserialize<Dictionary<string, int>>(jsonTrys);
+
+                if(usersTry.ContainsKey(userId)) trys = usersTry[userId];
+            }
+
+            return trys;
+        }
+
+        /// <summary>
+        /// Aumente en una unidad los intentos fallidos de sesión de un usuario
+        /// </summary>
+        /// <param name="htp"></param>
+        /// <param name="userId"></param>
+        public static void SetUserSessionTry(HttpContext htp, string userId)
+        {
+            Dictionary<string, int> usersTry = new();
+            int trys = 1;
+
+            if (htp.Session.GetString(SessionKeyTry) != null)
+            {
+                string jsonTrys = htp.Session.GetString(SessionKeyTry);
+                usersTry = JsonSerializer.Deserialize<Dictionary<string, int>>(jsonTrys);
+
+                if (usersTry.ContainsKey(userId)) {
+                    trys = usersTry[userId];
+                    trys++;
+                }
+            }
+
+            usersTry[userId] = trys;
+            string json = JsonSerializer.Serialize<Dictionary<string, int>>(usersTry);
+            htp.Session.SetString(SessionKeyTry, json);
         }
 
     }

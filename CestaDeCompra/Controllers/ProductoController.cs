@@ -11,6 +11,14 @@ namespace CestaDeCompra.Controllers
 {
     public class ProductoController : Controller
     {
+
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
+        public ProductoController(IWebHostEnvironment webHostEnvironment)
+        {
+            _webHostEnvironment = webHostEnvironment;
+        }
+
         [HttpGet]
         public IActionResult Agregar()
         {
@@ -40,6 +48,7 @@ namespace CestaDeCompra.Controllers
 
         public async Task<string> OnPostUploadAsync(IFormFile file)
         {
+            string webRootPath = _webHostEnvironment.WebRootPath;
             string fileName = "";
             string extension = "";
 
@@ -48,7 +57,7 @@ namespace CestaDeCompra.Controllers
                 fileName = Guid.NewGuid().ToString();
                 extension = Path.GetExtension(file.FileName);
 
-                var filePath = Path.Combine("C:\\Users\\ycamacho\\Desktop\\Net-WorkSpace\\CestaDeCompra\\CestaDeCompra\\wwwroot\\Img\\"+fileName+extension);
+                var filePath = Path.Combine(webRootPath, "Img", fileName+extension);
                 using (var stream = System.IO.File.Create(filePath))
                 {
                     await file.CopyToAsync(stream);

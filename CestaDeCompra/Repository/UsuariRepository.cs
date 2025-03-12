@@ -49,7 +49,7 @@ namespace CestaDeCompra.Repository
         public bool CheckOutUsuari(Usuari us)
         {
             Usuari user = GetUsuari(us.Email);
-            if(ExistUsuari(us.Email) && us.Password.Equals(user.Password))
+            if (ExistUsuari(us.Email) && us.Password.Equals(user.Password) && user.Locked == false)
                 return true;
             return false;
         }
@@ -70,5 +70,36 @@ namespace CestaDeCompra.Repository
 
             return user;
         }
+
+        public void DeleteUsuari(string email)
+        {
+            Usuaris._usuaris.RemoveAll(user => user.Email.Equals(email));
+        }
+
+        /// <summary>
+        /// Bloquea el usuario con el email especificado
+        /// </summary>
+        /// <param name="email"></param>
+        public void BlockUsuari(string email)
+        {
+            Usuari user = GetUsuari(email);
+            user.Locked = true;
+            DeleteUsuari(email);
+            CreateUsuari(user);
+        }
+
+
+        /// <summary>
+        /// Bloquea el usuario con el email especificado
+        /// </summary>
+        /// <param name="email"></param>
+        public void UnBlockUsuari(string email)
+        {
+            Usuari user = GetUsuari(email);
+            user.Locked = false;
+            DeleteUsuari(email);
+            CreateUsuari(user);
+        }
+
     }
 }
