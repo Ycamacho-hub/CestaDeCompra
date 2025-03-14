@@ -18,10 +18,22 @@ namespace CestaDeCompra.Controllers
         {
             _webHostEnvironment = webHostEnvironment;
         }
-
+        /// <summary>
+        /// Si el usuario no es admin no se redirige al home/index
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Agregar()
         {
+            // Si hay un usuario en la session verifica si es admin
+            if (SessionUtils.GetSessionUsuari(HttpContext) != null)
+            {
+                Usuari? user = SessionUtils.GetSessionUsuari(HttpContext);
+                // Si no lo es, se redirígelo
+                if (!user.IsAdmin) return LocalRedirect("/home/index");
+            } else // Si no hay usuario en la sesion, redigir también
+                return LocalRedirect("/home/index");
+
             return View();
         }
 

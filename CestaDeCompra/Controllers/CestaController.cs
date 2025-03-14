@@ -41,12 +41,6 @@ namespace CestaDeCompra.Controllers
         /// <returns></returns>
         public IActionResult Cesta()
         {
-            if(SessionUtils.GetSessionUsuari(HttpContext) != null)
-            {
-                Usuari? user = SessionUtils.GetSessionUsuari(HttpContext);
-                if(user.IsAdmin) return LocalRedirect("/home/index");
-
-            }
 
             var cestaProductos = SessionUtils.GetSessionCesta(HttpContext);
 

@@ -24,15 +24,16 @@ namespace CestaDeCompra.Controllers
             }
             else if(!userRepo.CheckOutUsuari(us))
             {
-                // Avisamos que contraseña es incorrecata y aumentamos un fallo
-                ModelState.AddModelError("Password", "Contraseña incorrecta");
-                SessionUtils.SetUserSessionTry(HttpContext, us.Email);
                 // Al tercer fallo bloquemos el usurio
                 if (SessionUtils.GetUserSessionTry(HttpContext, us.Email) > 3)
                 {
-                    ModelState.AddModelError("Email", "Usuario bloqueado");
+                    ModelState.AddModelError("Email", "Usuario bloqueado");               
                     userRepo.BlockUsuari(us.Email);
+                    return View(us);
                 }
+                // Avisamos que contraseña es incorrecata y aumentamos un fallo
+                ModelState.AddModelError("Password", "Contraseña incorrecta");
+                SessionUtils.SetUserSessionTry(HttpContext, us.Email);
              
             }
             if (userRepo.CheckOutUsuari(us))
