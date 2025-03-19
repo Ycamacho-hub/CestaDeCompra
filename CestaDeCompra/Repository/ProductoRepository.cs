@@ -1,9 +1,10 @@
 ﻿using CestaDeCompra.Models;
 using CestaDeCompra.Data;
+using CestaDeCompra.Repository.interfaces;
 
 namespace CestaDeCompra.Repository
 {
-    public class ProductoRepository
+    public class ProductoRepository : IProductoRepository
     {
         public Producto? GetProducto(string cod)
         {

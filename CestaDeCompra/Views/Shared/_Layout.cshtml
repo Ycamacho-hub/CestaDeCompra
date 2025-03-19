@@ -36,11 +36,11 @@
                     <a asp-controller="Producto" asp-action="Agregar">Agregar Producto</a>
                 }
             }
-            <div>
+            <div class="nav-auth">
                 @{
                     if (user != null)
                     {
-                        <p>@user.Email</p>
+                        <p>Bienvenido @user.Email !</p>
                         <a asp-controller="Usuari" asp-action="Logout">Logut</a>
 
                     }else

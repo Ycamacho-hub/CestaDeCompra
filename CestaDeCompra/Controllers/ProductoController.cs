@@ -4,8 +4,8 @@ using CestaDeCompra.Data;
 using System.Data;
 using System.Text.Json;
 using Microsoft.AspNetCore.Routing.Constraints;
-using CestaDeCompra.Repository;
 using CestaDeCompra.Utils;
+using CestaDeCompra.Repository.interfaces;
 
 namespace CestaDeCompra.Controllers
 {
@@ -13,13 +13,16 @@ namespace CestaDeCompra.Controllers
     {
 
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IProductoRepository _productoRepository;
 
-        public ProductoController(IWebHostEnvironment webHostEnvironment)
+        public ProductoController(IWebHostEnvironment webHostEnvironment, IProductoRepository productoRepository)
         {
             _webHostEnvironment = webHostEnvironment;
+            _productoRepository = productoRepository;
         }
         /// <summary>
-        /// Si el usuario no es admin no se redirige al home/index
+        /// Retorna la vista que contiene el formulario para añadir un producto.
+        /// Si el usuario no es admin, lo redirije al home.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -40,9 +43,8 @@ namespace CestaDeCompra.Controllers
         [HttpPost]
         public async Task<IActionResult> Agregar(Producto p, IFormFile ImgNom)
         {
-            ProductoRepository prodRepo = new();
 
-            if (prodRepo.ExistProducto(p.Codigo)) {
+            if (_productoRepository.ExistProducto(p.Codigo)) {
                 ModelState.AddModelError("Codigo", "Código de poducto ya existente");
                 return View(p); 
             }
@@ -53,7 +55,7 @@ namespace CestaDeCompra.Controllers
             {
                 
                 p.ImgNom = await OnPostUploadAsync(ImgNom);
-                prodRepo.AddProducto(p);
+                _productoRepository.AddProducto(p);
             }
             return LocalRedirect("/home/index");
         }

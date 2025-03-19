@@ -1,3 +1,6 @@
+using CestaDeCompra.Repository;
+using CestaDeCompra.Repository.interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,6 +12,9 @@ builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
+
+builder.Services.AddScoped<IUsuariRepository, UsuariRepository>();
+builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 
 var app = builder.Build();
 

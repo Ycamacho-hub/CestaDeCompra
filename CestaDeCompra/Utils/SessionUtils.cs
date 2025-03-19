@@ -8,7 +8,6 @@ namespace CestaDeCompra.Utils
 {
     public class SessionUtils
     {
-        const string SessionKeyBuy = "_compra";
         const string SessionKeyList = "_listaPrductos";
         const string SessionKeyUser = "_user";
         const string SessionKeyTry = "_try";

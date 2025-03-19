@@ -1,9 +1,10 @@
 ﻿using CestaDeCompra.Models;
 using CestaDeCompra.Data;
+using CestaDeCompra.Repository.interfaces;
 
 namespace CestaDeCompra.Repository
 {
-    public class UsuariRepository
+    public class UsuariRepository : IUsuariRepository
     {
         /// <summary>
         /// Método que añade un usuario a la lista
@@ -40,7 +41,8 @@ namespace CestaDeCompra.Repository
         public string GetPasswUsuari(string email)
         {
             string passw = "";
-            Usuaris._usuaris.ForEach(us => {
+            Usuaris._usuaris.ForEach(us =>
+            {
                 if (us.Email.Equals(email)) passw = us.Password; ;
             });
             return passw;

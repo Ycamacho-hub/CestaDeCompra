@@ -1,12 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CestaDeCompra.Models;
-using CestaDeCompra.Repository;
 using CestaDeCompra.Utils;
+using CestaDeCompra.Repository.interfaces;
 
 namespace CestaDeCompra.Controllers
 {
     public class UsuariController : Controller
     {
+
+        public readonly IUsuariRepository _usuariRepository;
+
+        public UsuariController(IUsuariRepository usuariRepository)
+        {
+            _usuariRepository = usuariRepository;
+        }
+
         [HttpGet]
         public IActionResult Login()
         {
@@ -16,19 +24,17 @@ namespace CestaDeCompra.Controllers
         [HttpPost]
         public IActionResult Login(Usuari us)
         {
-            UsuariRepository userRepo = new();
-
-            if (!userRepo.ExistUsuari(us.Email))
+            if (!_usuariRepository.ExistUsuari(us.Email))
             { 
                 ModelState.AddModelError("Email", "Usuario inexistente");
             }
-            else if(!userRepo.CheckOutUsuari(us))
+            else if(!_usuariRepository.CheckOutUsuari(us))
             {
                 // Al tercer fallo bloquemos el usurio
                 if (SessionUtils.GetUserSessionTry(HttpContext, us.Email) > 3)
                 {
-                    ModelState.AddModelError("Email", "Usuario bloqueado");               
-                    userRepo.BlockUsuari(us.Email);
+                    ModelState.AddModelError("Email", "Usuario bloqueado");
+                    _usuariRepository.BlockUsuari(us.Email);
                     return View(us);
                 }
                 // Avisamos que contraseña es incorrecata y aumentamos un fallo
@@ -36,9 +42,9 @@ namespace CestaDeCompra.Controllers
                 SessionUtils.SetUserSessionTry(HttpContext, us.Email);
              
             }
-            if (userRepo.CheckOutUsuari(us))
+            if (_usuariRepository.CheckOutUsuari(us))
             {
-                us = userRepo.GetUsuari(us.Email);
+                us = _usuariRepository.GetUsuari(us.Email);
                 SessionUtils.SetSessionUsuari(HttpContext, us);
                 return LocalRedirect("/home/index");
             }

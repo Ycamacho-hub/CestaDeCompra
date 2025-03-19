@@ -1,5 +1,5 @@
 using CestaDeCompra.Models;
-using CestaDeCompra.Repository;
+using CestaDeCompra.Repository.interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -8,16 +8,17 @@ namespace CestaDeCompra.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IProductoRepository _productoRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IProductoRepository productoRepository)
         {
             _logger = logger;
+            this._productoRepository = productoRepository;
         }
 
         public IActionResult Index()
         {
-            ProductoRepository productoRepository= new ProductoRepository();
-            return View(productoRepository.GetProductos());
+            return View(_productoRepository.GetProductos());
         }
 
 
