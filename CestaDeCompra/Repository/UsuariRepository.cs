@@ -10,7 +10,7 @@ namespace CestaDeCompra.Repository
         /// Método que añade un usuario a la lista
         /// </summary>
         /// <param name="user"></param>
-        public void CreateUsuari(Usuari user)
+        public void CreateUsuari(UsuariLogin user)
         {
             Usuaris._usuaris.Add(user);
         }
@@ -26,7 +26,7 @@ namespace CestaDeCompra.Repository
             //_usuaris.ForEach(us => {
             //    if (us.Equals(email)) exist = true; ;
             //});
-            foreach (Usuari us in Usuaris._usuaris)
+            foreach (UsuariLogin us in Usuaris._usuaris)
             {
                 if (us.Email.Equals(email)) return true;
             }
@@ -48,9 +48,9 @@ namespace CestaDeCompra.Repository
             return passw;
         }
 
-        public bool CheckOutUsuari(Usuari us)
+        public bool CheckOutUsuari(UsuariLogin us)
         {
-            Usuari user = GetUsuari(us.Email);
+            UsuariLogin user = GetUsuari(us.Email);
             if (ExistUsuari(us.Email) && us.Password.Equals(user.Password) && user.Locked == false)
                 return true;
             return false;
@@ -62,9 +62,9 @@ namespace CestaDeCompra.Repository
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public Usuari? GetUsuari(string email)
+        public UsuariLogin? GetUsuari(string email)
         {
-            Usuari? user = null;
+            UsuariLogin? user = null;
             Usuaris._usuaris.ForEach((us) =>
             {
                 if (us.Email.Equals(email)) user = us;
@@ -84,7 +84,7 @@ namespace CestaDeCompra.Repository
         /// <param name="email"></param>
         public void BlockUsuari(string email)
         {
-            Usuari user = GetUsuari(email);
+            UsuariLogin user = GetUsuari(email);
             user.Locked = true;
             DeleteUsuari(email);
             CreateUsuari(user);
@@ -97,7 +97,7 @@ namespace CestaDeCompra.Repository
         /// <param name="email"></param>
         public void UnBlockUsuari(string email)
         {
-            Usuari user = GetUsuari(email);
+            UsuariLogin user = GetUsuari(email);
             user.Locked = false;
             DeleteUsuari(email);
             CreateUsuari(user);

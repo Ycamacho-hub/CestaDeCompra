@@ -76,14 +76,14 @@ namespace CestaDeCompra.Utils
         /// </summary>
         /// <param name="htp"></param>
         /// <returns></returns>
-        public static Usuari? GetSessionUsuari(HttpContext htp)
+        public static UsuariLogin? GetSessionUsuari(HttpContext htp)
         {
             string? jsonUsuari;
-            Usuari? user = null;
+            UsuariLogin? user = null;
             if (htp.Session.GetInt32(SessionKeyUser) != null)
             {
                 jsonUsuari = htp.Session.GetString(SessionKeyUser);
-                user = JsonSerializer.Deserialize<Usuari>(jsonUsuari);
+                user = JsonSerializer.Deserialize<UsuariLogin>(jsonUsuari);
             }
 
             return user;
@@ -94,9 +94,9 @@ namespace CestaDeCompra.Utils
         /// </summary>
         /// <param name="htp"></param>
         /// <param name="user"></param>
-        public static void SetSessionUsuari(HttpContext htp, Usuari user)
+        public static void SetSessionUsuari(HttpContext htp, UsuariLogin user)
         {
-            string jsonUser = JsonSerializer.Serialize<Usuari>(user);
+            string jsonUser = JsonSerializer.Serialize<UsuariLogin>(user);
             htp.Session.SetString(SessionKeyUser, jsonUser);
         }
 

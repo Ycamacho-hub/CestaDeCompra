@@ -19,7 +19,7 @@ namespace CestaDeCompra.Controllers
 
             if (SessionUtils.GetSessionUsuari(HttpContext) != null)
             {
-                Usuari? user = SessionUtils.GetSessionUsuari(HttpContext);
+                UsuariLogin? user = SessionUtils.GetSessionUsuari(HttpContext);
                 if (user.IsAdmin) return LocalRedirect("/home/index");
 
             }

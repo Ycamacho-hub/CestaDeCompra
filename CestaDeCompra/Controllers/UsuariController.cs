@@ -22,7 +22,7 @@ namespace CestaDeCompra.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(Usuari us)
+        public IActionResult Login(UsuariLogin us)
         {
             if (!_usuariRepository.ExistUsuari(us.Email))
             { 

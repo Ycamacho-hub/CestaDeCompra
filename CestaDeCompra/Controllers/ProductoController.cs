@@ -31,7 +31,7 @@ namespace CestaDeCompra.Controllers
             // Si hay un usuario en la session verifica si es admin
             if (SessionUtils.GetSessionUsuari(HttpContext) != null)
             {
-                Usuari? user = SessionUtils.GetSessionUsuari(HttpContext);
+                UsuariLogin? user = SessionUtils.GetSessionUsuari(HttpContext);
                 // Si no lo es, se redirígelo
                 if (!user.IsAdmin) return LocalRedirect("/home/index");
             } else // Si no hay usuario en la sesion, redigir también

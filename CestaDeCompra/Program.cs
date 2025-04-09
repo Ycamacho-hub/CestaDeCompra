@@ -13,8 +13,8 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
 
-builder.Services.AddScoped<IUsuariRepository, UsuariRepository>();
-builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
+builder.Services.AddTransient<IUsuariRepository, UsuariRepository>();
+builder.Services.AddTransient<IProductoRepository, ProductoRepository>();
 
 var app = builder.Build();
 

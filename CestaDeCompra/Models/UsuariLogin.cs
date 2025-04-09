@@ -2,7 +2,7 @@
 
 namespace CestaDeCompra.Models
 {
-    public class Usuari
+    public class UsuariLogin
     {
         /// <summary>email. Serveix com a login. Ha de ser únic.</summary>
         [Required(ErrorMessage = "Ingrese un correo electrónico")]
@@ -21,17 +21,17 @@ namespace CestaDeCompra.Models
         /// <summary>Data y hora de creació o darrera edició o bloqueig</summary>
         public DateTime Lastupdate { get; set; }
 
-        public Usuari() {
+        public UsuariLogin() {
             this.Email = string.Empty;
             this.Password = string.Empty;
         } 
 
-        public Usuari(String password, string email)
+        public UsuariLogin(String password, string email)
         {
             this.Password = password;  
             this.Email = email;
         }
-        public Usuari(string password, string email, bool isAdmin, bool locked, DateTime lastupdate)
+        public UsuariLogin(string password, string email, bool isAdmin, bool locked, DateTime lastupdate)
         {
             this.Password = password;
             this.Email = email;
